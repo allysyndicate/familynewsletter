@@ -1,0 +1,125 @@
+☀️ {{ newsletter_date_display }}
+{{ household.get("name", "Family") }} Morning Brief - whipped up {{ generated_at }}
+
+Legend: [LIVE] = fresh & live, [PLACEHOLDER] = coming soon
+========================================
+
+[{{ 'LIVE' if weather.status == 'ok' else 'PLACEHOLDER' }}] ☀️ WEATHER
+{{ weather.location }}: {{ weather.summary }}{% if weather.temperature is not none %}, {{ weather.temperature }} deg{{ weather.temperature_unit }}{% endif %}
+{% if weather.high is not none or weather.low is not none -%}
+{% if weather.high is not none %}High {{ weather.high }}{{ weather.temperature_unit }}{% endif %}{% if weather.high is not none and weather.low is not none %}  {% endif %}{% if weather.low is not none %}Low {{ weather.low }}{{ weather.temperature_unit }}{% endif %}
+{% endif -%}
+{{ weather.details }}
+{% if weather.hourly %}
+Hourly forecast:
+TIME     COND  TEMP  PRECIP
+{% for slot in weather.hourly -%}
+{{ "%-7s"|format(slot.time_label) }}  {{ slot.icon }}  {{ "%3s"|format(slot.temperature) }}F  {{ "%3s"|format(slot.precip_chance if slot.precip_chance is not none else 0) }}%
+{% endfor -%}
+{% endif %}
+{% if weather.daily %}
+7-day forecast:
+DAY   COND  HIGH  LOW  PRECIP
+{% for day in weather.daily -%}
+{{ "%-4s"|format(day.day_label) }}  {{ day.icon }}  {{ "%3s"|format(day.high if day.high is not none else '--') }}F  {{ "%3s"|format(day.low if day.low is not none else '--') }}F  {{ "%3s"|format(day.precip_chance if day.precip_chance is not none else 0) }}%
+{% endfor -%}
+{% endif %}
+
+[{{ 'LIVE' if schedule.status == 'ok' else 'PLACEHOLDER' }}] 🧸 TODDLER SCHEDULE
+{% if schedule["items"] -%}
+{% for item in schedule["items"] -%}
+- {{ item }}
+{% endfor -%}
+{% else -%}
+Nothing on the calendar today — enjoy the free time! 🎈
+{% endif %}
+[{{ 'LIVE' if chores.status == 'ok' else 'PLACEHOLDER' }}] 🧹 CHORES
+Today:
+{% if chores.today -%}
+{% for task in chores.today -%}
+- {{ task.name }}{% if task.theme %} ({{ task.theme }}){% endif %}
+{% endfor -%}
+{% else -%}
+No chores on deck — clean slate! ✨
+{% endif %}
+This Month:
+{% if chores.this_month -%}
+{% for task in chores.this_month -%}
+- {% if task.pick_one %}Pick one: {{ task.name }}{% else %}{{ task.name }}{% endif %}{% if task.theme %} ({{ task.theme }}){% endif %}
+{% endfor -%}
+{% else -%}
+Nothing extra scheduled this month.
+{% endif %}
+This Quarter:
+{% if chores.this_quarter -%}
+{% for task in chores.this_quarter -%}
+- {% if task.pick_one %}Pick one: {{ task.name }}{% else %}{{ task.name }}{% endif %}
+{% endfor -%}
+{% else -%}
+Nothing planned yet this quarter — check back later! 🌱
+{% endif %}
+[{{ 'LIVE' if local_news.status in ('ok', 'partial') else 'PLACEHOLDER' }}] 📰 LOCAL HEADLINES
+{% if local_news.headlines -%}
+{% for item in local_news.headlines -%}
+- {{ item.title }} ({{ item.source }}) {{ item.link }}{% if item.image %} [image]{% endif %}
+{% endfor -%}
+{% else -%}
+No local headlines today — a quiet morning around town. 🌤️
+{% endif %}
+[{{ 'LIVE' if global_news.status in ('ok', 'partial') else 'PLACEHOLDER' }}] 🌍 GLOBAL HEADLINES
+{% if global_news.headlines -%}
+{% for item in global_news.headlines -%}
+- {{ item.title }} ({{ item.source }}) {{ item.link }}{% if item.image %} [image]{% endif %}
+{% endfor -%}
+{% else -%}
+Global headlines are on their way soon! 🚧
+{% endif %}
+[{{ 'LIVE' if ai_news.status in ('ok', 'partial') else 'PLACEHOLDER' }}] 🤖 NEW IN AI
+{% if ai_news.headlines -%}
+{% for item in ai_news.headlines -%}
+- {{ item.title }} ({{ item.source }}) {{ item.link }}{% if item.image %} [image]{% endif %}
+{% endfor -%}
+{% else -%}
+AI updates are brewing — check back soon! 🔧
+{% endif %}
+[{{ 'LIVE' if sports.status in ('ok', 'partial') else 'PLACEHOLDER' }}] 🏟️ SPORTS
+Upcoming Games:
+{% if sports.games.games -%}
+{% for game in sports.games.games -%}
+- {{ game.when }} | {{ game.league }} | {{ game.matchup }}{% if game.link %} {{ game.link }}{% endif %}
+{% endfor -%}
+{% else -%}
+No games on the calendar right now — off-season quiet. 🧢
+{% endif %}
+Team News:
+{% if sports.news.headlines -%}
+{% for item in sports.news.headlines -%}
+- {{ item.title }} ({{ item.source }}) {{ item.link }}{% if item.image %} [image]{% endif %}
+{% endfor -%}
+{% else -%}
+No team headlines today — check back after game day. 📣
+{% endif %}
+{% if sports.world_cup and (sports.world_cup.matches or sports.world_cup.news.headlines) -%}
+World Cup:
+{% if sports.world_cup.matches -%}
+{% for match in sports.world_cup.matches -%}
+- {% if match.stage %}{{ match.stage }} | {% endif %}{{ match.when }} | {{ match.matchup }}{% if match.live %} [LIVE]{% endif %}{% if match.link %} {{ match.link }}{% endif %}
+{% endfor -%}
+{% endif -%}
+{% if sports.world_cup.news.headlines -%}
+{% for item in sports.world_cup.news.headlines -%}
+- {{ item.title }} ({{ item.source }}) {{ item.link }}{% if item.image %} [image]{% endif %}
+{% endfor -%}
+{% endif -%}
+{% endif %}
+[{{ 'LIVE' if celebrity.status in ('ok', 'partial') else 'PLACEHOLDER' }}] 🌟 CELEBRITY BUZZ
+{% if celebrity.headlines -%}
+{% for item in celebrity.headlines -%}
+- {{ item.title }} ({{ item.source }}) {{ item.link }}{% if item.image %} [image]{% endif %}
+{% endfor -%}
+{% else -%}
+No celebrity buzz today — the red carpet's quiet. 🎬
+{% endif %}
+========================================
+Have a wonderful day! 💛
+STATUS: weather={{ weather.status }} local_news={{ local_news.status }} global_news={{ global_news.status }} ai_news={{ ai_news.status }} sports={{ sports.status }} celebrity={{ celebrity.status }}

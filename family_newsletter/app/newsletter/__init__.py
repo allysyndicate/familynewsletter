@@ -1,0 +1,2 @@
+"""Newsletter assembly and rendering."""
+

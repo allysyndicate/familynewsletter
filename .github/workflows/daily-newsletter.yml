@@ -1,0 +1,75 @@
+name: Daily Family Newsletter
+
+on:
+  workflow_dispatch: {}
+  schedule:
+    # GitHub cron is UTC and has no DST awareness. 8:00 AM America/Los_Angeles is
+    # 15:00 UTC during PDT (summer) and 16:00 UTC during PST (winter). We fire at
+    # both times and the "send window" guard below lets exactly one run through
+    # per day (the one where local Pacific time is 08:xx). Manual runs always send.
+    - cron: "0 15 * * *"
+    - cron: "0 16 * * *"
+
+concurrency:
+  group: daily-newsletter
+  cancel-in-progress: false
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      # Non-secret runtime config (mirrors the local .env, minus credentials).
+      APP_ENV: production
+      SAMPLE_MODE: "true"
+      CONFIG_FILE: config.example.yaml
+      NEWSLETTER_TIMEZONE: America/Los_Angeles
+      NEWSLETTER_SEND_TIME: "08:00"
+      NEWSLETTER_ENABLED: "true"
+      EMAIL_PROVIDER: smtp
+      SMTP_HOST: smtp.gmail.com
+      SMTP_PORT: "587"
+      WEATHER_PROVIDER: sample
+      # Secrets (set these in GitHub → Settings → Secrets and variables → Actions).
+      SMTP_USERNAME: ${{ secrets.SMTP_USERNAME }}
+      SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+      EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
+      EMAIL_RECIPIENTS: ${{ secrets.EMAIL_RECIPIENTS }}
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e .
+
+      - name: Determine send window
+        id: window
+        run: |
+          python - <<'PY' >> "$GITHUB_OUTPUT"
+          import os
+          from datetime import datetime
+          from zoneinfo import ZoneInfo
+
+          event = os.environ.get("GITHUB_EVENT_NAME", "")
+          hour = datetime.now(ZoneInfo("America/Los_Angeles")).hour
+          # Manual dispatch always sends; scheduled runs only at the 8 AM Pacific hour.
+          should = event == "workflow_dispatch" or hour == 8
+          print(f"should_send={'true' if should else 'false'}")
+          print(f"pacific_hour={hour}")
+          PY
+
+      - name: Report skipped window
+        if: steps.window.outputs.should_send != 'true'
+        run: echo "Skipping — Pacific hour is ${{ steps.window.outputs.pacific_hour }}, not 8 AM. (This UTC cron is the off-DST duplicate.)"
+
+      - name: Send newsletter
+        if: steps.window.outputs.should_send == 'true'
+        run: python -m family_newsletter.app.run_daily --now

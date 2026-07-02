@@ -1,0 +1,154 @@
+household:
+  name: "Family"
+  city: "Wilsonville"
+  state: "OR"
+  zip: "97070"
+  latitude: 45.3037
+  longitude: -122.7737
+
+newsletter:
+  timezone: "America/Los_Angeles"
+  send_time: "08:00"   # 8:00 AM America/Los_Angeles daily send
+  enabled: false
+  sections:
+    - weather
+    - family_schedule
+    - chores
+    - local_headlines
+    - global_headlines
+    - ai_updates
+    - sports
+    - celebrity
+
+email:
+  provider: "smtp"                       # Gmail SMTP (smtp.gmail.com:587, STARTTLS)
+  from_address: "your-gmail@gmail.com"    # usually the same as SMTP_USERNAME
+  from_name: "Family Morning Brief"
+  # Recipients can be listed here OR via the EMAIL_RECIPIENTS env var (comma-
+  # separated). EMAIL_RECIPIENTS wins when set.
+  recipients:
+    - "recipient@example.com"
+  # SECRETS ARE NEVER STORED HERE. The SMTP username + Gmail app password are
+  # read only from environment variables (.env is git-ignored):
+  #   SMTP_HOST=smtp.gmail.com
+  #   SMTP_PORT=587
+  #   SMTP_USERNAME=your-gmail@gmail.com
+  #   SMTP_PASSWORD=<16-char Gmail App Password, NOT your normal password>
+  # See README "Email delivery setup" for how to generate a Gmail App Password.
+
+weather:
+  provider: "nws"
+  api_key: ""
+
+news:
+  local_radius_miles: 25
+  local_feeds:
+    - "https://www.wilsonvilleoregon.gov/news/rss"
+    - "https://www.opb.org/arc/outboundfeeds/rss/?outputType=xml"
+  global_feeds:
+    - "http://feeds.bbci.co.uk/news/world/rss.xml"
+    - "https://feeds.npr.org/1004/rss.xml"
+    - "https://www.aljazeera.com/xml/rss/all.xml"
+  ai_feeds:
+    # Priority order per Researcher's verified lineup. Cross-feed headline dedupe
+    # (by title) is applied in fetch_rss_headlines, and results are sorted by
+    # recency across all feeds, so overlap between these is fine.
+    - "https://simonwillison.net/atom/everything/"          # top pick, high signal (Atom)
+    - "https://news.google.com/rss/search?q=artificial+intelligence+model+release+when:2d&hl=en-US&gl=US&ceid=US:en"  # broad same-day safety net
+    - "https://the-decoder.com/feed/"
+    - "https://techcrunch.com/category/artificial-intelligence/feed/"
+    - "https://arstechnica.com/ai/feed/"                     # AI-scoped; fetches cleanly server-side
+    - "https://openai.com/blog/rss.xml"                      # low-frequency first-party supplement
+    # Dropped: Anthropic community mirror (unreliable; no official Anthropic RSS exists).
+    # Dropped: HN filter — high-volume same-day Ask/Show HN items dominated the
+    #   recency sort and crowded out the priority feeds; low signal for releases.
+    # Skipped: The Verge general index (not AI-scoped — would inject non-AI items by recency).
+
+schedule:
+  toddler_schedule_source: "sample"
+  ics_url: ""
+
+chores:
+  data_source: "file"
+  file_path: "data/chores.yaml"
+
+sports:
+  enabled: true
+  # Google News per-team recency window for the team-news headlines.
+  news_window: "when:2d"
+  news_limit: 12
+  # ESPN season for schedule lookups; defaults to the run year if omitted.
+  season: 2026
+  # team_id is the ESPN team abbreviation for major US leagues, but ESPN's soccer
+  # endpoints need the NUMERIC team id (abbreviations collide — "por"/"sea" resolve
+  # to national teams). Off-season leagues simply return no upcoming games.
+  # Trim this list in config to change which teams appear.
+  teams:
+    # Chicago
+    - name: "Chicago Bears"
+      sport: "football"
+      league: "nfl"
+      team_id: "chi"
+    - name: "Chicago Cubs"
+      sport: "baseball"
+      league: "mlb"
+      team_id: "chc"
+    - name: "Chicago White Sox"
+      sport: "baseball"
+      league: "mlb"
+      team_id: "chw"
+    - name: "Chicago Bulls"
+      sport: "basketball"
+      league: "nba"
+      team_id: "chi"
+    - name: "Chicago Blackhawks"
+      sport: "hockey"
+      league: "nhl"
+      team_id: "chi"
+    # Portland
+    - name: "Portland Trail Blazers"
+      sport: "basketball"
+      league: "nba"
+      team_id: "por"
+    - name: "Portland Timbers"
+      sport: "soccer"
+      league: "usa.1"
+      team_id: "9723"
+    - name: "Portland Thorns"
+      sport: "soccer"
+      league: "usa.nwsl"
+      team_id: "15362"
+    # Seattle
+    - name: "Seattle Seahawks"
+      sport: "football"
+      league: "nfl"
+      team_id: "sea"
+    - name: "Seattle Mariners"
+      sport: "baseball"
+      league: "mlb"
+      team_id: "sea"
+    - name: "Seattle Kraken"
+      sport: "hockey"
+      league: "nhl"
+      team_id: "sea"
+    - name: "Seattle Sounders"
+      sport: "soccer"
+      league: "usa.1"
+      team_id: "9726"
+  # World Cup subsection: upcoming/live matches (ESPN) + top headlines (Google News).
+  world_cup:
+    enabled: true
+    league: "fifa.world"
+    days: 5
+    news_query: "FIFA World Cup"
+    news_limit: 3
+    news_window: "when:1d"
+
+celebrity:
+  # Primary outlets first, then a Google News query for breadth. Cross-feed dedupe
+  # by title is applied in fetch_rss_headlines. Variety/People are omitted — Variety
+  # returns 402 via Tollbit server-side.
+  feeds:
+    - "https://eol-feeds.eonline.com/rssfeed/us/top_stories"
+    - "https://www.hollywoodreporter.com/feed/"
+    - "https://news.google.com/rss/search?q=celebrity+entertainment+news+when:2d&hl=en-US&gl=US&ceid=US:en"

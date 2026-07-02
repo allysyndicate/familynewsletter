@@ -1,0 +1,220 @@
+# Chore chart extracted from photographed printed charts (2026-07-02).
+# Source charts: "The Daily Reset" (daily checklist) and "The Weekly Flow"
+# (one room/theme per weekday, with a monthly add-on per theme).
+# No assignees or quarterly tasks were visible on the charts — see notes
+# at the bottom for items that need user confirmation.
+
+cadence_groups:
+
+  # "The Daily Reset" — same short list done every day, no matter what.
+  - id: daily
+    label: Today
+    frequency: daily
+    description: >
+      Small acts that keep the house from sliding. Anything beyond this
+      is a bonus, not a requirement.
+    tasks:
+      - id: daily-dishes
+        name: Dishes / sink reset
+      - id: daily-counters
+        name: Wipe counters and table
+      - id: daily-floor-sweep
+        name: Quick floor sweep (kitchen)
+      - id: daily-laundry
+        name: One laundry action
+      - id: daily-pickup
+        name: 10-item pickup
+      - id: daily-trash
+        name: Trash, diapers, or pet mess
+      - id: daily-highchair
+        name: Clean highchair
+
+  # "The Weekly Flow" — one room/theme per weekday.
+  - id: weekly
+    label: This Week
+    frequency: weekly
+    description: >
+      One task area per day; each weekday also has an optional monthly
+      add-on task (pick one).
+    tasks:
+      - id: weekly-mon-sheets
+        name: Wash or swap sheets
+        day_of_week: Monday
+        theme: Laundry / Bedrooms
+      - id: weekly-mon-rugs
+        name: Clean rugs
+        day_of_week: Monday
+        theme: Laundry / Bedrooms
+      - id: weekly-mon-vacuum
+        name: Quick vacuum bedroom(s)
+        day_of_week: Monday
+        theme: Laundry / Bedrooms
+      - id: weekly-mon-trash
+        name: Empty bedroom trash
+        day_of_week: Monday
+        theme: Laundry / Bedrooms
+      - id: weekly-mon-clothes
+        name: Put away visible clothes
+        day_of_week: Monday
+        theme: Laundry / Bedrooms
+      - id: weekly-mon-outtrash
+        name: Take out trash and recycling
+        day_of_week: Monday
+        theme: Laundry / Bedrooms
+      - id: weekly-mon-litter
+        name: Scoop cat litter
+        day_of_week: Monday
+        theme: Laundry / Bedrooms
+
+      - id: weekly-tue-toilets
+        name: Clean toilets
+        day_of_week: Tuesday
+        theme: Bathrooms
+      - id: weekly-tue-sink
+        name: Wipe sink and counter
+        day_of_week: Tuesday
+        theme: Bathrooms
+      - id: weekly-tue-mirror
+        name: Clean mirror
+        day_of_week: Tuesday
+        theme: Bathrooms
+      - id: weekly-tue-shower
+        name: Quick tub or shower spray
+        day_of_week: Tuesday
+        theme: Bathrooms
+      - id: weekly-tue-restock
+        name: Restock toilet paper and soap
+        day_of_week: Tuesday
+        theme: Bathrooms
+      - id: weekly-tue-towels
+        name: Swap towels
+        day_of_week: Tuesday
+        theme: Bathrooms
+
+      - id: weekly-wed-vacuum
+        name: Vacuum main areas
+        day_of_week: Wednesday
+        theme: Floors
+      - id: weekly-wed-mop
+        name: Mop kitchen and eating area
+        day_of_week: Wednesday
+        theme: Floors
+      - id: weekly-wed-mats
+        name: Shake out mats
+        day_of_week: Wednesday
+        theme: Floors
+      - id: weekly-wed-spot
+        name: Spot clean sticky spots
+        day_of_week: Wednesday
+        theme: Floors
+      - id: weekly-wed-litter
+        name: Clean cat litter
+        day_of_week: Wednesday
+        theme: Floors
+
+      - id: weekly-thu-stovetop
+        name: Clean stovetop
+        day_of_week: Thursday
+        theme: Kitchen / Pets
+      - id: weekly-thu-microwave
+        name: Wipe microwave
+        day_of_week: Thursday
+        theme: Kitchen / Pets
+      - id: weekly-thu-cabinets
+        name: Wipe cabinet fronts
+        day_of_week: Thursday
+        theme: Kitchen / Pets
+      - id: weekly-thu-fridge
+        name: Clear old fridge food
+        day_of_week: Thursday
+        theme: Kitchen / Pets
+      - id: weekly-thu-fridgehandles
+        name: Wipe fridge handles
+        day_of_week: Thursday
+        theme: Kitchen / Pets
+      - id: weekly-thu-dogpoop
+        name: Pick up dog poop
+        day_of_week: Thursday
+        theme: Kitchen / Pets
+      - id: weekly-thu-waterbowl
+        name: Wash water fountain or bowls
+        day_of_week: Thursday
+        theme: Kitchen / Pets
+
+      - id: weekly-fri-pickup
+        name: 20-minute whole-house pickup
+        day_of_week: Friday
+        theme: Reset / Errands
+      - id: weekly-fri-mail
+        name: Deal with mail and packages
+        day_of_week: Friday
+        theme: Reset / Errands
+      - id: weekly-fri-bags
+        name: Restock diaper bag, purse, car
+        day_of_week: Friday
+        theme: Reset / Errands
+        note: "Handwriting unclear on the photo — confirm wording with user."
+      - id: weekly-fri-grocery
+        name: Make grocery list
+        day_of_week: Friday
+        theme: Reset / Errands
+      - id: weekly-fri-doompile
+        name: Clear one "doom pile"
+        day_of_week: Friday
+        theme: Reset / Errands
+      - id: weekly-fri-toys
+        name: Rotate toys and books
+        day_of_week: Friday
+        theme: Reset / Errands
+      - id: weekly-fri-litter
+        name: Scoop cat litter
+        day_of_week: Friday
+        theme: Reset / Errands
+
+  # One optional pick-one task per weekday theme, done monthly.
+  - id: monthly
+    label: This Month
+    frequency: monthly
+    description: >
+      Optional add-on — pick one option per theme, once a month.
+    tasks:
+      - id: monthly-bedrooms
+        name: "Clean washing machine OR vacuum under beds"
+        theme: Laundry / Bedrooms
+        pick_one: true
+      - id: monthly-bathrooms
+        name: "Wipe down walls and switches OR dust webs"
+        theme: Bathrooms
+        pick_one: true
+      - id: monthly-floors
+        name: "Vacuum under couch/furniture"
+        theme: Floors
+        pick_one: true
+      - id: monthly-kitchen
+        name: "Clean fridge shelves OR dishwasher filter"
+        theme: Kitchen / Pets
+        pick_one: true
+      - id: monthly-reset
+        name: "Declutter a drawer OR check supplies"
+        theme: Reset / Errands
+        pick_one: true
+
+  # No quarterly-cadence tasks appeared on any of the three photographed
+  # charts. Placeholder left empty pending user confirmation — see notes.
+  - id: quarterly
+    label: This Quarter
+    frequency: quarterly
+    description: null
+    tasks: []
+
+# A fourth chart ("The Bad Week Plan" / "Daily SOS" + "Weekly Minimum") was
+# partially visible in the photos but mostly cropped off. It appears to be
+# a fallback/contingency checklist for overwhelmed weeks, not a normal
+# recurring cadence, so it was NOT included in cadence_groups above.
+# Flagging for user clarification rather than guessing its structure.
+notes:
+  - "No assignee names appear on any of the three photographed charts (no per-person columns or names) — all tasks are currently unassigned. Confirm whether assignees should be added, and who they are."
+  - "No quarterly-cadence chores were visible in the photos. Confirm whether a quarterly chart exists elsewhere or should be left empty."
+  - "Friday's 'diaper bag, purse, car' task has ambiguous handwriting (read as 'Restock') — please confirm the exact word."
+  - "A partially-visible 'Bad Week Plan' chart (Daily SOS + Weekly Minimum fallback checklist) was cropped in the photos and excluded from this file. Let us know if it should be included, and if so, provide a clearer photo."
+  - "The Daily Reset chart shows purple checkmarks already filled in for Mon-Thu on several rows — these look like a record of past completion, not a template, and were not carried over as 'status' data here."
