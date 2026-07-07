@@ -3,12 +3,17 @@ name: Daily Family Newsletter
 on:
   workflow_dispatch: {}
   schedule:
-    # GitHub cron is UTC and has no DST awareness. 8:00 AM America/Los_Angeles is
-    # 15:00 UTC during PDT (summer) and 16:00 UTC during PST (winter). We fire at
-    # both times and the "send window" guard below lets exactly one run through
-    # per day (the one where local Pacific time is 08:xx). Manual runs always send.
+    # GitHub cron is UTC, has no DST awareness, AND frequently fires 1-2 h late
+    # under load. 8:00 AM America/Los_Angeles is 15:00 UTC in PDT (summer) and
+    # 16:00 UTC in PST (winter). We fire hourly across 15:00-19:00 UTC so at
+    # least one run lands in the morning Pacific window even when GitHub is late.
+    # The per-day cache marker below guarantees exactly ONE edition per Pacific
+    # date no matter how many of these fire. Manual runs always send.
     - cron: "0 15 * * *"
     - cron: "0 16 * * *"
+    - cron: "0 17 * * *"
+    - cron: "0 18 * * *"
+    - cron: "0 19 * * *"
 
 concurrency:
   group: daily-newsletter
@@ -58,18 +63,53 @@ jobs:
           from datetime import datetime
           from zoneinfo import ZoneInfo
 
+          now = datetime.now(ZoneInfo("America/Los_Angeles"))
           event = os.environ.get("GITHUB_EVENT_NAME", "")
-          hour = datetime.now(ZoneInfo("America/Los_Angeles")).hour
-          # Manual dispatch always sends; scheduled runs only at the 8 AM Pacific hour.
-          should = event == "workflow_dispatch" or hour == 8
+          # Accept a morning window (8-11 AM Pacific) rather than an exact hour so
+          # a late-firing cron still sends. The cache marker prevents duplicates.
+          in_window = 8 <= now.hour <= 11
+          should = event == "workflow_dispatch" or in_window
           print(f"should_send={'true' if should else 'false'}")
-          print(f"pacific_hour={hour}")
+          print(f"pacific_hour={now.hour}")
+          print(f"pacific_date={now.strftime('%Y-%m-%d')}")
           PY
 
-      - name: Report skipped window
-        if: steps.window.outputs.should_send != 'true'
-        run: echo "Skipping — Pacific hour is ${{ steps.window.outputs.pacific_hour }}, not 8 AM. (This UTC cron is the off-DST duplicate.)"
+      - name: Restore daily send marker
+        id: marker
+        if: github.event_name != 'workflow_dispatch' && steps.window.outputs.should_send == 'true'
+        uses: actions/cache/restore@v4
+        with:
+          path: .sent-marker
+          key: newsletter-sent-${{ steps.window.outputs.pacific_date }}
+
+      - name: Decide whether to send
+        id: decide
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "Manual dispatch — sending."
+            echo "send=true" >> "$GITHUB_OUTPUT"
+          elif [ "${{ steps.window.outputs.should_send }}" != "true" ]; then
+            echo "Outside morning send window (Pacific hour ${{ steps.window.outputs.pacific_hour }}); skipping."
+            echo "send=false" >> "$GITHUB_OUTPUT"
+          elif [ "${{ steps.marker.outputs.cache-hit }}" = "true" ]; then
+            echo "Already sent today (${{ steps.window.outputs.pacific_date }}); skipping duplicate."
+            echo "send=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "In window and not yet sent today — sending."
+            echo "send=true" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Send newsletter
-        if: steps.window.outputs.should_send == 'true'
+        if: steps.decide.outputs.send == 'true'
         run: python -m family_newsletter.app.run_daily --now
+
+      - name: Record daily send marker
+        if: steps.decide.outputs.send == 'true' && github.event_name != 'workflow_dispatch'
+        run: date -u +%FT%TZ > .sent-marker
+
+      - name: Save daily send marker
+        if: steps.decide.outputs.send == 'true' && github.event_name != 'workflow_dispatch'
+        uses: actions/cache/save@v4
+        with:
+          path: .sent-marker
+          key: newsletter-sent-${{ steps.window.outputs.pacific_date }}

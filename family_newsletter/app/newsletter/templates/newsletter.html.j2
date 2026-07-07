@@ -5,26 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ subject }}</title>
   </head>
-  <body style="margin:0; padding:0; background:#eef1fb; color:#3b3550; font-family:'Segoe UI', Helvetica, Arial, sans-serif;">
-    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#eef1fb; background:linear-gradient(180deg, #e8ecfb 0%, #eef6f2 100%);">
+  <body style="margin:0; padding:0; background:#efe9fb; color:#2e2740; font-family:'Segoe UI', Helvetica, Arial, sans-serif;">
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#efe9fb; background:linear-gradient(180deg, #ece4fb 0%, #f3eefc 100%);">
       <tr>
         <td align="center" style="padding:24px 12px;">
           <table role="presentation" width="600" cellspacing="0" cellpadding="0" style="width:600px; max-width:100%;">
 
             <!-- Masthead -->
             <tr>
-              <td style="background:#a9a4e8; background:linear-gradient(135deg, #b7a8ec 0%, #93b8e6 55%, #8fd0c0 100%); border-radius:22px 22px 0 0; padding:30px 26px 26px; border-bottom:3px dotted rgba(255,255,255,0.55);">
-                <p style="margin:0 0 6px; color:#f5f2ff; font-size:13px; letter-spacing:1px; text-transform:uppercase; font-weight:700;">☀️ Rise and shine!</p>
-                <h1 style="margin:0 0 8px; color:#ffffff; font-size:34px; line-height:40px; font-weight:800; text-shadow:0 1px 2px rgba(60,50,110,0.25);">{{ newsletter_date_display }}</h1>
-                <p style="margin:0; color:#f5f2ff; font-size:17px; font-weight:700;">{{ household.get("name", "Family") }} Morning Brief</p>
-                <p style="margin:10px 0 0; color:#f5f2ff; font-size:13px;">Whipped up {{ generated_at }}</p>
+              <td style="background:#5a2e91; background:linear-gradient(135deg, #4b2483 0%, #6d3fb0 55%, #8a5fce 100%); border-radius:22px 22px 0 0; padding:30px 26px 26px; border-bottom:3px dotted rgba(255,255,255,0.55);">
+                <p style="margin:0 0 6px; color:#efe4ff; font-size:13px; letter-spacing:1px; text-transform:uppercase; font-weight:700;">☀️ Rise and shine!</p>
+                <h1 style="margin:0 0 8px; color:#ffffff; font-size:34px; line-height:40px; font-weight:800; text-shadow:0 1px 2px rgba(40,20,80,0.35);">{{ newsletter_date_display }}</h1>
+                <p style="margin:0; color:#efe4ff; font-size:17px; font-weight:700;">{{ household.get("name", "Family") }} Morning Brief</p>
+                <p style="margin:10px 0 0; color:#e3d4fb; font-size:13px;">Whipped up {{ generated_at }}</p>
               </td>
             </tr>
 
             <!-- Legend -->
             <tr>
-              <td style="background:#f7f7fd; padding:14px 26px; border-left:1px solid #dcd9f5; border-right:1px solid #dcd9f5;">
-                <p style="margin:0; font-size:12px; color:#6b6690;">
+              <td style="background:#faf7ff; padding:14px 26px; border-left:1px solid #e4dcf5; border-right:1px solid #e4dcf5;">
+                <p style="margin:0; font-size:12px; color:#7a6aa5;">
                   <span style="display:inline-block; width:9px; height:9px; border-radius:50%; background:#4caf6e; margin-right:6px;"></span>Fresh &amp; live
                   &nbsp;&nbsp;
                   <span style="display:inline-block; width:9px; height:9px; border-radius:50%; background:#f0b429; margin-right:6px;"></span>Coming soon
@@ -34,43 +34,43 @@
 
             <!-- Weather -->
             <tr>
-              <td style="background:#f7f7fd; padding:6px 26px 4px; border-left:1px solid #dcd9f5; border-right:1px solid #dcd9f5;">
-                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#eef0fc; background:linear-gradient(160deg, #eef0fc 0%, #e6f2fb 100%); border:1px dashed #c9c4ee; border-radius:18px; margin:12px 0;">
+              <td style="background:#faf7ff; padding:6px 26px 4px; border-left:1px solid #e4dcf5; border-right:1px solid #e4dcf5;">
+                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#ffffff; background:linear-gradient(160deg, #ffffff 0%, #f7f2fe 100%); border:1px dashed #d9cbf1; border-radius:18px; margin:12px 0;">
                   <tr>
                     <td style="padding:20px 22px;">
-                      <p style="margin:0 0 8px; font-size:13px; font-weight:800; letter-spacing:0.4px; text-transform:uppercase; color:#6a5ecb;">
+                      <p style="margin:0 0 8px; font-size:13px; font-weight:800; letter-spacing:0.4px; text-transform:uppercase; color:#5a2e91;">
                         <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:{{ '#4caf6e' if weather.status == 'ok' else '#f0b429' }}; margin-right:6px;"></span>
                         ☀️ Weather
                       </p>
-                      <p style="margin:0 0 4px; font-size:18px; font-weight:700;">
+                      <p style="margin:0 0 4px; font-size:18px; font-weight:700; color:#2e2740;">
                         {{ weather.location }}{% if weather.temperature is not none %} &middot; {{ weather.temperature }}&deg;{{ weather.temperature_unit }}{% endif %}
                       </p>
-                      <p style="margin:0 0 4px; font-size:14px; color:#524d75;">{{ weather.summary }}</p>
+                      <p style="margin:0 0 4px; font-size:14px; color:#4a4360;">{{ weather.summary }}</p>
                       {% if weather.high is not none or weather.low is not none %}
-                      <p style="margin:0 0 10px; font-size:13px; font-weight:700; color:#5b53a0;">
+                      <p style="margin:0 0 10px; font-size:13px; font-weight:700; color:#6d3fb0;">
                         {% if weather.high is not none %}⬆️ High {{ weather.high }}&deg;{{ weather.temperature_unit }}{% endif %}{% if weather.high is not none and weather.low is not none %}&nbsp;&nbsp;{% endif %}{% if weather.low is not none %}⬇️ Low {{ weather.low }}&deg;{{ weather.temperature_unit }}{% endif %}
                       </p>
                       {% endif %}
-                      <p style="margin:0 0 12px; font-size:13px; color:#807bab;">{{ weather.details }}</p>
+                      <p style="margin:0 0 12px; font-size:13px; color:#8a76bd;">{{ weather.details }}</p>
 
                       {% if weather.hourly %}
-                      <p style="margin:8px 0 2px; font-size:11px; font-weight:800; letter-spacing:0.5px; text-transform:uppercase; color:#6b7fa3;">Hourly</p>
-                      <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-top:1px dashed #c9c4ee; padding-top:4px;">
+                      <p style="margin:8px 0 2px; font-size:11px; font-weight:800; letter-spacing:0.5px; text-transform:uppercase; color:#8a76bd;">Hourly</p>
+                      <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-top:1px dashed #d9cbf1; padding-top:4px;">
                         {% for row in weather.hourly | batch(8) %}
                         <tr>
                           {% for slot in row %}
                           <td align="center" valign="top" style="padding:10px 3px 0; width:12.5%;">
-                            <p style="margin:0 0 3px; font-size:11px; font-weight:700; color:#6a5ecb; white-space:nowrap;">{{ slot.time_label }}</p>
+                            <p style="margin:0 0 3px; font-size:11px; font-weight:700; color:#6d3fb0; white-space:nowrap;">{{ slot.time_label }}</p>
                             <p style="margin:0 0 2px; font-size:20px; line-height:1;">{{ slot.icon }}</p>
-                            <p style="margin:0 0 6px; font-size:13px; font-weight:700; color:#3b3550; white-space:nowrap;">{{ slot.temperature }}&deg;</p>
+                            <p style="margin:0 0 6px; font-size:13px; font-weight:700; color:#2e2740; white-space:nowrap;">{{ slot.temperature }}&deg;</p>
                             <table role="presentation" width="26" cellspacing="0" cellpadding="0" style="margin:0 auto;">
                               <tr>
                                 {% set pct = slot.precip_chance if slot.precip_chance is not none else 0 %}
-                                <td width="{{ pct }}%" style="height:6px; background:#5b9bd5; border-radius:4px 0 0 4px; font-size:0; line-height:0;">&nbsp;</td>
-                                <td width="{{ 100 - pct }}%" style="height:6px; background:#dfe3f7; border-radius:0 4px 4px 0; font-size:0; line-height:0;">&nbsp;</td>
+                                <td width="{{ pct }}%" style="height:6px; background:#8a5fce; border-radius:4px 0 0 4px; font-size:0; line-height:0;">&nbsp;</td>
+                                <td width="{{ 100 - pct }}%" style="height:6px; background:#e7ddf7; border-radius:0 4px 4px 0; font-size:0; line-height:0;">&nbsp;</td>
                               </tr>
                             </table>
-                            <p style="margin:5px 0 0; font-size:10px; color:#7d97b8; white-space:nowrap;">💧{{ pct }}%</p>
+                            <p style="margin:5px 0 0; font-size:10px; color:#9a86c8; white-space:nowrap;">💧{{ pct }}%</p>
                           </td>
                           {% endfor %}
                           {% for _ in range(8 - row|length) %}<td style="width:12.5%;">&nbsp;</td>{% endfor %}
@@ -80,14 +80,14 @@
                       {% endif %}
 
                       {% if weather.daily %}
-                      <p style="margin:16px 0 2px; font-size:11px; font-weight:800; letter-spacing:0.5px; text-transform:uppercase; color:#6b7fa3;">7-Day Forecast</p>
-                      <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-top:1px dashed #c9c4ee; margin-top:4px;">
+                      <p style="margin:16px 0 2px; font-size:11px; font-weight:800; letter-spacing:0.5px; text-transform:uppercase; color:#8a76bd;">7-Day Forecast</p>
+                      <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-top:1px dashed #d9cbf1; margin-top:4px;">
                         {% for day in weather.daily %}
                         <tr>
-                          <td valign="middle" style="padding:8px 4px; font-size:13px; font-weight:700; color:#6a5ecb; width:22%;">{{ day.day_label }}</td>
+                          <td valign="middle" style="padding:8px 4px; font-size:13px; font-weight:700; color:#6d3fb0; width:22%;">{{ day.day_label }}</td>
                           <td valign="middle" align="center" style="padding:8px 4px; font-size:18px; width:14%;">{{ day.icon }}</td>
-                          <td valign="middle" style="padding:8px 4px; font-size:12px; color:#7d97b8; width:20%; white-space:nowrap;">{% if day.precip_chance is not none %}💧{{ day.precip_chance }}%{% endif %}</td>
-                          <td valign="middle" align="right" style="padding:8px 4px; font-size:13px; font-weight:700; color:#3b3550; width:44%; white-space:nowrap;">{% if day.high is not none %}{{ day.high }}&deg;{% else %}--{% endif %} <span style="color:#a7a2c4; font-weight:400;">/ {% if day.low is not none %}{{ day.low }}&deg;{% else %}--{% endif %}</span></td>
+                          <td valign="middle" style="padding:8px 4px; font-size:12px; color:#9a86c8; width:20%; white-space:nowrap;">{% if day.precip_chance is not none %}💧{{ day.precip_chance }}%{% endif %}</td>
+                          <td valign="middle" align="right" style="padding:8px 4px; font-size:13px; font-weight:700; color:#2e2740; width:44%; white-space:nowrap;">{% if day.high is not none %}{{ day.high }}&deg;{% else %}--{% endif %} <span style="color:#b3a3d8; font-weight:400;">/ {% if day.low is not none %}{{ day.low }}&deg;{% else %}--{% endif %}</span></td>
                         </tr>
                         {% endfor %}
                       </table>
@@ -100,20 +100,20 @@
 
             <!-- Family Schedule -->
             <tr>
-              <td style="background:#f7f7fd; padding:0 26px 4px; border-left:1px solid #dcd9f5; border-right:1px solid #dcd9f5;">
-                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#eef7f0; background:linear-gradient(160deg, #eef7f0 0%, #e7f4ee 100%); border:1px dashed #bfe3cf; border-radius:18px; margin:12px 0;">
+              <td style="background:#faf7ff; padding:0 26px 4px; border-left:1px solid #e4dcf5; border-right:1px solid #e4dcf5;">
+                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#ffffff; background:linear-gradient(160deg, #ffffff 0%, #f7f2fe 100%); border:1px dashed #d9cbf1; border-radius:18px; margin:12px 0;">
                   <tr>
                     <td style="padding:20px 22px;">
-                      <p style="margin:0 0 10px; font-size:13px; font-weight:800; letter-spacing:0.4px; text-transform:uppercase; color:#3f8a68;">
+                      <p style="margin:0 0 10px; font-size:13px; font-weight:800; letter-spacing:0.4px; text-transform:uppercase; color:#5a2e91;">
                         <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:{{ '#4caf6e' if schedule.status == 'ok' else '#f0b429' }}; margin-right:6px;"></span>
                         🧸 Toddler Schedule
                       </p>
                       {% if schedule["items"] %}
                       {% for item in schedule["items"] %}
-                      <p style="margin:0 0 5px; font-size:14px; color:#4a5c52;">{{ item }}</p>
+                      <p style="margin:0 0 5px; font-size:14px; color:#4a4360;">{{ item }}</p>
                       {% endfor %}
                       {% else %}
-                      <p style="margin:0; font-size:14px; color:#7b9384;">Nothing on the calendar today — enjoy the free time! 🎈</p>
+                      <p style="margin:0; font-size:14px; color:#8a76bd;">Nothing on the calendar today — enjoy the free time! 🎈</p>
                       {% endif %}
                     </td>
                   </tr>
@@ -123,40 +123,40 @@
 
             <!-- Chores -->
             <tr>
-              <td style="background:#f7f7fd; padding:0 26px 4px; border-left:1px solid #dcd9f5; border-right:1px solid #dcd9f5;">
-                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#eef4fb; background:linear-gradient(160deg, #eef4fb 0%, #e9f0fa 100%); border:1px dashed #c3d8f2; border-radius:18px; margin:12px 0;">
+              <td style="background:#faf7ff; padding:0 26px 4px; border-left:1px solid #e4dcf5; border-right:1px solid #e4dcf5;">
+                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#ffffff; background:linear-gradient(160deg, #ffffff 0%, #f5eefe 100%); border:1px dashed #d9cbf1; border-radius:18px; margin:12px 0;">
                   <tr>
                     <td style="padding:20px 22px;">
-                      <p style="margin:0 0 10px; font-size:13px; font-weight:800; letter-spacing:0.4px; text-transform:uppercase; color:#3f6fa8;">
+                      <p style="margin:0 0 10px; font-size:13px; font-weight:800; letter-spacing:0.4px; text-transform:uppercase; color:#5a2e91;">
                         <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:{{ '#4caf6e' if chores.status == 'ok' else '#f0b429' }}; margin-right:6px;"></span>
                         🧹 Chores
                       </p>
 
-                      <p style="margin:0 0 4px; font-size:11px; font-weight:800; letter-spacing:0.5px; text-transform:uppercase; color:#6b7fa3;">Today</p>
+                      <p style="margin:0 0 4px; font-size:11px; font-weight:800; letter-spacing:0.5px; text-transform:uppercase; color:#8a76bd;">Today</p>
                       {% if chores.today %}
                       {% for task in chores.today %}
-                      <p style="margin:0 0 5px; font-size:14px; color:#454f66;">☐ {{ task.name }}{% if task.theme %} <span style="color:#8b9bc0; font-size:12px;">({{ task.theme }})</span>{% endif %}</p>
+                      <p style="margin:0 0 5px; font-size:14px; color:#3a3352;">☐ {{ task.name }}{% if task.theme %} <span style="color:#a08fce; font-size:12px;">({{ task.theme }})</span>{% endif %}</p>
                       {% endfor %}
                       {% else %}
-                      <p style="margin:0 0 10px; font-size:14px; color:#7d8bab;">No chores on deck — clean slate! ✨</p>
+                      <p style="margin:0 0 10px; font-size:14px; color:#8a76bd;">No chores on deck — clean slate! ✨</p>
                       {% endif %}
 
-                      <p style="margin:14px 0 4px; font-size:11px; font-weight:800; letter-spacing:0.5px; text-transform:uppercase; color:#6b7fa3;">This Month</p>
+                      <p style="margin:14px 0 4px; font-size:11px; font-weight:800; letter-spacing:0.5px; text-transform:uppercase; color:#8a76bd;">This Month</p>
                       {% if chores.this_month %}
                       {% for task in chores.this_month %}
-                      <p style="margin:0 0 5px; font-size:14px; color:#454f66;">{% if task.pick_one %}🔀 Pick one: {{ task.name }}{% else %}☐ {{ task.name }}{% endif %}{% if task.theme %} <span style="color:#8b9bc0; font-size:12px;">({{ task.theme }})</span>{% endif %}</p>
+                      <p style="margin:0 0 5px; font-size:14px; color:#3a3352;">{% if task.pick_one %}🔀 Pick one: {{ task.name }}{% else %}☐ {{ task.name }}{% endif %}{% if task.theme %} <span style="color:#a08fce; font-size:12px;">({{ task.theme }})</span>{% endif %}</p>
                       {% endfor %}
                       {% else %}
-                      <p style="margin:0 0 10px; font-size:14px; color:#7d8bab;">Nothing extra scheduled this month.</p>
+                      <p style="margin:0 0 10px; font-size:14px; color:#8a76bd;">Nothing extra scheduled this month.</p>
                       {% endif %}
 
-                      <p style="margin:14px 0 4px; font-size:11px; font-weight:800; letter-spacing:0.5px; text-transform:uppercase; color:#6b7fa3;">This Quarter</p>
+                      <p style="margin:14px 0 4px; font-size:11px; font-weight:800; letter-spacing:0.5px; text-transform:uppercase; color:#8a76bd;">This Quarter</p>
                       {% if chores.this_quarter %}
                       {% for task in chores.this_quarter %}
-                      <p style="margin:0 0 5px; font-size:14px; color:#454f66;">{% if task.pick_one %}🔀 Pick one: {{ task.name }}{% else %}☐ {{ task.name }}{% endif %}</p>
+                      <p style="margin:0 0 5px; font-size:14px; color:#3a3352;">{% if task.pick_one %}🔀 Pick one: {{ task.name }}{% else %}☐ {{ task.name }}{% endif %}</p>
                       {% endfor %}
                       {% else %}
-                      <p style="margin:0; font-size:14px; color:#7d8bab;">Nothing planned yet this quarter — check back later! 🌱</p>
+                      <p style="margin:0; font-size:14px; color:#8a76bd;">Nothing planned yet this quarter — check back later! 🌱</p>
                       {% endif %}
                     </td>
                   </tr>
@@ -166,11 +166,11 @@
 
             <!-- Local Headlines -->
             <tr>
-              <td style="background:#f7f7fd; padding:0 26px 4px; border-left:1px solid #dcd9f5; border-right:1px solid #dcd9f5;">
-                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#f3eefb; background:linear-gradient(160deg, #f3eefb 0%, #ede9f9 100%); border:1px dashed #ddc9f2; border-radius:18px; margin:12px 0;">
+              <td style="background:#faf7ff; padding:0 26px 4px; border-left:1px solid #e4dcf5; border-right:1px solid #e4dcf5;">
+                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#ffffff; background:linear-gradient(160deg, #ffffff 0%, #f6effd 100%); border:1px dashed #d9cbf1; border-radius:18px; margin:12px 0;">
                   <tr>
                     <td style="padding:20px 22px;">
-                      <p style="margin:0 0 12px; font-size:13px; font-weight:800; letter-spacing:0.4px; text-transform:uppercase; color:#7a52ab;">
+                      <p style="margin:0 0 12px; font-size:13px; font-weight:800; letter-spacing:0.4px; text-transform:uppercase; color:#5a2e91;">
                         <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:{{ '#4caf6e' if local_news.status in ('ok', 'partial') else '#f0b429' }}; margin-right:6px;"></span>
                         📰 Local Headlines
                       </p>
@@ -184,14 +184,14 @@
                           </td>
                           {% endif %}
                           <td valign="top">
-                            <a href="{{ item.link }}" style="color:#6a3fa0; text-decoration:none; font-weight:700; font-size:14px;">{{ item.title }}</a>
-                            <br><span style="color:#907bab; font-size:12px;">{{ item.source }}{% if item.published_at %} &middot; {{ item.published_at | human_date }}{% endif %}</span>
+                            <a href="{{ item.link }}" style="color:#6d3fb0; text-decoration:none; font-weight:700; font-size:14px;">{{ item.title }}</a>
+                            <br><span style="color:#8a76bd; font-size:12px;">{{ item.source }}{% if item.published_at %} &middot; {{ item.published_at | human_date }}{% endif %}</span>
                           </td>
                         </tr>
                       </table>
                       {% endfor %}
                       {% else %}
-                      <p style="margin:0; font-size:14px; color:#907bab;">No local headlines today — a quiet morning around town. 🌤️</p>
+                      <p style="margin:0; font-size:14px; color:#8a76bd;">No local headlines today — a quiet morning around town. 🌤️</p>
                       {% endif %}
                     </td>
                   </tr>
@@ -201,11 +201,11 @@
 
             <!-- Global Headlines -->
             <tr>
-              <td style="background:#f7f7fd; padding:0 26px 4px; border-left:1px solid #dcd9f5; border-right:1px solid #dcd9f5;">
-                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#eaf3fb; background:linear-gradient(160deg, #eaf3fb 0%, #e3eefc 100%); border:1px dashed #c0d9f2; border-radius:18px; margin:12px 0;">
+              <td style="background:#faf7ff; padding:0 26px 4px; border-left:1px solid #e4dcf5; border-right:1px solid #e4dcf5;">
+                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#ffffff; background:linear-gradient(160deg, #ffffff 0%, #f4edfc 100%); border:1px dashed #d9cbf1; border-radius:18px; margin:12px 0;">
                   <tr>
                     <td style="padding:20px 22px;">
-                      <p style="margin:0 0 12px; font-size:13px; font-weight:800; letter-spacing:0.4px; text-transform:uppercase; color:#3169a8;">
+                      <p style="margin:0 0 12px; font-size:13px; font-weight:800; letter-spacing:0.4px; text-transform:uppercase; color:#5a2e91;">
                         <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:{{ '#4caf6e' if global_news.status in ('ok', 'partial') else '#f0b429' }}; margin-right:6px;"></span>
                         🌍 Global Headlines
                       </p>
@@ -215,18 +215,18 @@
                         <tr>
                           {% if item.image %}
                           <td width="72" valign="top" style="padding-right:12px;">
-                            <img src="{{ item.image }}" width="72" height="72" alt="{{ item.title }}" style="display:block; width:72px; height:72px; object-fit:cover; border-radius:12px; border:1px solid #cfe1f7;">
+                            <img src="{{ item.image }}" width="72" height="72" alt="{{ item.title }}" style="display:block; width:72px; height:72px; object-fit:cover; border-radius:12px; border:1px solid #d8caf3;">
                           </td>
                           {% endif %}
                           <td valign="top">
-                            <a href="{{ item.link }}" style="color:#2f6bb0; text-decoration:none; font-weight:700; font-size:14px;">{{ item.title }}</a>
-                            <br><span style="color:#7d97b8; font-size:12px;">{{ item.source }}{% if item.published_at %} &middot; {{ item.published_at | human_date }}{% endif %}</span>
+                            <a href="{{ item.link }}" style="color:#6d3fb0; text-decoration:none; font-weight:700; font-size:14px;">{{ item.title }}</a>
+                            <br><span style="color:#8a76bd; font-size:12px;">{{ item.source }}{% if item.published_at %} &middot; {{ item.published_at | human_date }}{% endif %}</span>
                           </td>
                         </tr>
                       </table>
                       {% endfor %}
                       {% else %}
-                      <p style="margin:0; font-size:14px; color:#7d97b8;">Global headlines are on their way soon! 🚧</p>
+                      <p style="margin:0; font-size:14px; color:#8a76bd;">Global headlines are on their way soon! 🚧</p>
                       {% endif %}
                     </td>
                   </tr>
@@ -236,11 +236,11 @@
 
             <!-- New in AI -->
             <tr>
-              <td style="background:#f7f7fd; padding:0 26px 4px; border-left:1px solid #dcd9f5; border-right:1px solid #dcd9f5;">
-                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#e9f7f2; background:linear-gradient(160deg, #e9f7f2 0%, #e4f5ee 100%); border:1px dashed #bfe6d6; border-radius:18px; margin:12px 0;">
+              <td style="background:#faf7ff; padding:0 26px 4px; border-left:1px solid #e4dcf5; border-right:1px solid #e4dcf5;">
+                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#ffffff; background:linear-gradient(160deg, #ffffff 0%, #f5eefd 100%); border:1px dashed #d9cbf1; border-radius:18px; margin:12px 0;">
                   <tr>
                     <td style="padding:20px 22px;">
-                      <p style="margin:0 0 12px; font-size:13px; font-weight:800; letter-spacing:0.4px; text-transform:uppercase; color:#2f9179;">
+                      <p style="margin:0 0 12px; font-size:13px; font-weight:800; letter-spacing:0.4px; text-transform:uppercase; color:#5a2e91;">
                         <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:{{ '#4caf6e' if ai_news.status in ('ok', 'partial') else '#f0b429' }}; margin-right:6px;"></span>
                         🤖 New in AI
                       </p>
@@ -250,18 +250,18 @@
                         <tr>
                           {% if item.image %}
                           <td width="72" valign="top" style="padding-right:12px;">
-                            <img src="{{ item.image }}" width="72" height="72" alt="{{ item.title }}" style="display:block; width:72px; height:72px; object-fit:cover; border-radius:12px; border:1px solid #c3e8da;">
+                            <img src="{{ item.image }}" width="72" height="72" alt="{{ item.title }}" style="display:block; width:72px; height:72px; object-fit:cover; border-radius:12px; border:1px solid #d5c6f2;">
                           </td>
                           {% endif %}
                           <td valign="top">
-                            <a href="{{ item.link }}" style="color:#238768; text-decoration:none; font-weight:700; font-size:14px;">{{ item.title }}</a>
-                            <br><span style="color:#7bab97; font-size:12px;">{{ item.source }}{% if item.published_at %} &middot; {{ item.published_at | human_date }}{% endif %}</span>
+                            <a href="{{ item.link }}" style="color:#6d3fb0; text-decoration:none; font-weight:700; font-size:14px;">{{ item.title }}</a>
+                            <br><span style="color:#8a76bd; font-size:12px;">{{ item.source }}{% if item.published_at %} &middot; {{ item.published_at | human_date }}{% endif %}</span>
                           </td>
                         </tr>
                       </table>
                       {% endfor %}
                       {% else %}
-                      <p style="margin:0; font-size:14px; color:#7bab97;">AI updates are brewing — check back soon! 🔧</p>
+                      <p style="margin:0; font-size:14px; color:#8a76bd;">AI updates are brewing — check back soon! 🔧</p>
                       {% endif %}
                     </td>
                   </tr>
@@ -271,64 +271,64 @@
 
             <!-- Sports -->
             <tr>
-              <td style="background:#f7f7fd; padding:0 26px 4px; border-left:1px solid #dcd9f5; border-right:1px solid #dcd9f5;">
-                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#fbf1e7; background:linear-gradient(160deg, #fbf1e7 0%, #f9ece0 100%); border:1px dashed #f0d3b4; border-radius:18px; margin:12px 0;">
+              <td style="background:#faf7ff; padding:0 26px 4px; border-left:1px solid #e4dcf5; border-right:1px solid #e4dcf5;">
+                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#ffffff; background:linear-gradient(160deg, #ffffff 0%, #f3ecfc 100%); border:1px dashed #d9cbf1; border-radius:18px; margin:12px 0;">
                   <tr>
                     <td style="padding:20px 22px;">
-                      <p style="margin:0 0 12px; font-size:13px; font-weight:800; letter-spacing:0.4px; text-transform:uppercase; color:#c07a2b;">
+                      <p style="margin:0 0 12px; font-size:13px; font-weight:800; letter-spacing:0.4px; text-transform:uppercase; color:#5a2e91;">
                         <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:{{ '#4caf6e' if sports.status in ('ok', 'partial') else '#f0b429' }}; margin-right:6px;"></span>
                         🏟️ Sports
                       </p>
 
-                      <p style="margin:0 0 6px; font-size:11px; font-weight:800; letter-spacing:0.5px; text-transform:uppercase; color:#b0863f;">Upcoming Games</p>
+                      <p style="margin:0 0 6px; font-size:11px; font-weight:800; letter-spacing:0.5px; text-transform:uppercase; color:#8a76bd;">Upcoming Games</p>
                       {% if sports.games.games %}
                       <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="margin:0 0 10px;">
                         {% for game in sports.games.games %}
                         <tr>
-                          <td valign="top" style="padding:4px 8px 4px 0; font-size:12px; font-weight:700; color:#b0863f; white-space:nowrap; width:38%;">{{ game.when }}</td>
-                          <td valign="top" style="padding:4px 0; font-size:13px; color:#5c4a34;">
-                            {% if game.link %}<a href="{{ game.link }}" style="color:#a15c1e; text-decoration:none; font-weight:700;">{{ game.matchup }}</a>{% else %}<span style="font-weight:700;">{{ game.matchup }}</span>{% endif %}
-                            <span style="color:#b79b78; font-size:11px;">&middot; {{ game.league }}</span>
+                          <td valign="top" style="padding:4px 8px 4px 0; font-size:12px; font-weight:700; color:#7a52ab; white-space:nowrap; width:38%;">{{ game.when }}</td>
+                          <td valign="top" style="padding:4px 0; font-size:13px; color:#3a3352;">
+                            {% if game.link %}<a href="{{ game.link }}" style="color:#6d3fb0; text-decoration:none; font-weight:700;">{{ game.matchup }}</a>{% else %}<span style="font-weight:700;">{{ game.matchup }}</span>{% endif %}
+                            <span style="color:#a08fce; font-size:11px;">&middot; {{ game.league }}</span>
                           </td>
                         </tr>
                         {% endfor %}
                       </table>
                       {% else %}
-                      <p style="margin:0 0 10px; font-size:14px; color:#b79b78;">No games on the calendar right now — off-season quiet. 🧢</p>
+                      <p style="margin:0 0 10px; font-size:14px; color:#8a76bd;">No games on the calendar right now — off-season quiet. 🧢</p>
                       {% endif %}
 
-                      <p style="margin:14px 0 6px; font-size:11px; font-weight:800; letter-spacing:0.5px; text-transform:uppercase; color:#b0863f;">Team News</p>
+                      <p style="margin:14px 0 6px; font-size:11px; font-weight:800; letter-spacing:0.5px; text-transform:uppercase; color:#8a76bd;">Team News</p>
                       {% if sports.news.headlines %}
                       {% for item in sports.news.headlines %}
                       <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="margin:0 0 12px;">
                         <tr>
                           {% if item.image %}
                           <td width="72" valign="top" style="padding-right:12px;">
-                            <img src="{{ item.image }}" width="72" height="72" alt="{{ item.title }}" style="display:block; width:72px; height:72px; object-fit:cover; border-radius:12px; border:1px solid #f0d3b4;">
+                            <img src="{{ item.image }}" width="72" height="72" alt="{{ item.title }}" style="display:block; width:72px; height:72px; object-fit:cover; border-radius:12px; border:1px solid #d5c6f2;">
                           </td>
                           {% endif %}
                           <td valign="top">
-                            <a href="{{ item.link }}" style="color:#a15c1e; text-decoration:none; font-weight:700; font-size:14px;">{{ item.title }}</a>
-                            <br><span style="color:#b79b78; font-size:12px;">{{ item.source }}{% if item.published_at %} &middot; {{ item.published_at | human_date }}{% endif %}</span>
+                            <a href="{{ item.link }}" style="color:#6d3fb0; text-decoration:none; font-weight:700; font-size:14px;">{{ item.title }}</a>
+                            <br><span style="color:#8a76bd; font-size:12px;">{{ item.source }}{% if item.published_at %} &middot; {{ item.published_at | human_date }}{% endif %}</span>
                           </td>
                         </tr>
                       </table>
                       {% endfor %}
                       {% else %}
-                      <p style="margin:0; font-size:14px; color:#b79b78;">No team headlines today — check back after game day. 📣</p>
+                      <p style="margin:0; font-size:14px; color:#8a76bd;">No team headlines today — check back after game day. 📣</p>
                       {% endif %}
 
                       {% if sports.world_cup and (sports.world_cup.matches or sports.world_cup.news.headlines) %}
-                      <p style="margin:16px 0 6px; font-size:11px; font-weight:800; letter-spacing:0.5px; text-transform:uppercase; color:#b0863f;">⚽ World Cup</p>
+                      <p style="margin:16px 0 6px; font-size:11px; font-weight:800; letter-spacing:0.5px; text-transform:uppercase; color:#8a76bd;">⚽ World Cup</p>
                       {% if sports.world_cup.matches %}
                       <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="margin:0 0 10px;">
                         {% for match in sports.world_cup.matches %}
                         <tr>
-                          <td valign="top" style="padding:4px 8px 4px 0; font-size:12px; font-weight:700; color:#b0863f; white-space:nowrap; width:38%;">
+                          <td valign="top" style="padding:4px 8px 4px 0; font-size:12px; font-weight:700; color:#7a52ab; white-space:nowrap; width:38%;">
                             {% if match.stage %}{{ match.stage }}<br>{% endif %}{{ match.when }}
                           </td>
-                          <td valign="top" style="padding:4px 0; font-size:13px; color:#5c4a34;">
-                            {% if match.link %}<a href="{{ match.link }}" style="color:#a15c1e; text-decoration:none; font-weight:700;">{{ match.matchup }}</a>{% else %}<span style="font-weight:700;">{{ match.matchup }}</span>{% endif %}
+                          <td valign="top" style="padding:4px 0; font-size:13px; color:#3a3352;">
+                            {% if match.link %}<a href="{{ match.link }}" style="color:#6d3fb0; text-decoration:none; font-weight:700;">{{ match.matchup }}</a>{% else %}<span style="font-weight:700;">{{ match.matchup }}</span>{% endif %}
                             {% if match.live %}<span style="display:inline-block; margin-left:6px; padding:1px 6px; font-size:10px; font-weight:800; letter-spacing:0.4px; color:#ffffff; background:#e0392b; border-radius:8px;">LIVE</span>{% endif %}
                           </td>
                         </tr>
@@ -341,12 +341,12 @@
                         <tr>
                           {% if item.image %}
                           <td width="72" valign="top" style="padding-right:12px;">
-                            <img src="{{ item.image }}" width="72" height="72" alt="{{ item.title }}" style="display:block; width:72px; height:72px; object-fit:cover; border-radius:12px; border:1px solid #f0d3b4;">
+                            <img src="{{ item.image }}" width="72" height="72" alt="{{ item.title }}" style="display:block; width:72px; height:72px; object-fit:cover; border-radius:12px; border:1px solid #d5c6f2;">
                           </td>
                           {% endif %}
                           <td valign="top">
-                            <a href="{{ item.link }}" style="color:#a15c1e; text-decoration:none; font-weight:700; font-size:14px;">{{ item.title }}</a>
-                            <br><span style="color:#b79b78; font-size:12px;">{{ item.source }}{% if item.published_at %} &middot; {{ item.published_at | human_date }}{% endif %}</span>
+                            <a href="{{ item.link }}" style="color:#6d3fb0; text-decoration:none; font-weight:700; font-size:14px;">{{ item.title }}</a>
+                            <br><span style="color:#8a76bd; font-size:12px;">{{ item.source }}{% if item.published_at %} &middot; {{ item.published_at | human_date }}{% endif %}</span>
                           </td>
                         </tr>
                       </table>
@@ -361,11 +361,11 @@
 
             <!-- Celebrity -->
             <tr>
-              <td style="background:#f7f7fd; padding:0 26px 4px; border-left:1px solid #dcd9f5; border-right:1px solid #dcd9f5;">
-                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#fbeef4; background:linear-gradient(160deg, #fbeef4 0%, #f8e6ef 100%); border:1px dashed #f2c9dd; border-radius:18px; margin:12px 0;">
+              <td style="background:#faf7ff; padding:0 26px 4px; border-left:1px solid #e4dcf5; border-right:1px solid #e4dcf5;">
+                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#ffffff; background:linear-gradient(160deg, #ffffff 0%, #f6edfa 100%); border:1px dashed #d9cbf1; border-radius:18px; margin:12px 0;">
                   <tr>
                     <td style="padding:20px 22px;">
-                      <p style="margin:0 0 12px; font-size:13px; font-weight:800; letter-spacing:0.4px; text-transform:uppercase; color:#b8477f;">
+                      <p style="margin:0 0 12px; font-size:13px; font-weight:800; letter-spacing:0.4px; text-transform:uppercase; color:#5a2e91;">
                         <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:{{ '#4caf6e' if celebrity.status in ('ok', 'partial') else '#f0b429' }}; margin-right:6px;"></span>
                         🌟 Celebrity Buzz
                       </p>
@@ -375,18 +375,18 @@
                         <tr>
                           {% if item.image %}
                           <td width="72" valign="top" style="padding-right:12px;">
-                            <img src="{{ item.image }}" width="72" height="72" alt="{{ item.title }}" style="display:block; width:72px; height:72px; object-fit:cover; border-radius:12px; border:1px solid #f2c9dd;">
+                            <img src="{{ item.image }}" width="72" height="72" alt="{{ item.title }}" style="display:block; width:72px; height:72px; object-fit:cover; border-radius:12px; border:1px solid #e3d0ee;">
                           </td>
                           {% endif %}
                           <td valign="top">
-                            <a href="{{ item.link }}" style="color:#b8477f; text-decoration:none; font-weight:700; font-size:14px;">{{ item.title }}</a>
-                            <br><span style="color:#c288a5; font-size:12px;">{{ item.source }}{% if item.published_at %} &middot; {{ item.published_at | human_date }}{% endif %}</span>
+                            <a href="{{ item.link }}" style="color:#9b3fb0; text-decoration:none; font-weight:700; font-size:14px;">{{ item.title }}</a>
+                            <br><span style="color:#a880bd; font-size:12px;">{{ item.source }}{% if item.published_at %} &middot; {{ item.published_at | human_date }}{% endif %}</span>
                           </td>
                         </tr>
                       </table>
                       {% endfor %}
                       {% else %}
-                      <p style="margin:0; font-size:14px; color:#c288a5;">No celebrity buzz today — the red carpet's quiet. 🎬</p>
+                      <p style="margin:0; font-size:14px; color:#a880bd;">No celebrity buzz today — the red carpet's quiet. 🎬</p>
                       {% endif %}
                     </td>
                   </tr>
@@ -396,8 +396,8 @@
 
             <!-- Footer / status -->
             <tr>
-              <td style="background:#3b3550; background:linear-gradient(135deg, #423b5c 0%, #35506b 100%); border-radius:0 0 22px 22px; padding:20px 26px; color:#e6e2f7; font-size:11px; border-left:1px solid #dcd9f5; border-right:1px solid #dcd9f5; border-bottom:1px solid #dcd9f5;">
-                Have a wonderful day! 💛 &middot; Weather: {{ weather.status }} &middot; Local news: {{ local_news.status }} &middot; Global news: {{ global_news.status }} &middot; AI updates: {{ ai_news.status }} &middot; Sports: {{ sports.status }} &middot; Celebrity: {{ celebrity.status }}
+              <td style="background:#3a2560; background:linear-gradient(135deg, #35205a 0%, #4b2483 100%); border-radius:0 0 22px 22px; padding:20px 26px; color:#e3d4fb; font-size:11px; border-left:1px solid #e4dcf5; border-right:1px solid #e4dcf5; border-bottom:1px solid #e4dcf5;">
+                Have a wonderful day! 💜 &middot; Weather: {{ weather.status }} &middot; Local news: {{ local_news.status }} &middot; Global news: {{ global_news.status }} &middot; AI updates: {{ ai_news.status }} &middot; Sports: {{ sports.status }} &middot; Celebrity: {{ celebrity.status }}
               </td>
             </tr>
 
