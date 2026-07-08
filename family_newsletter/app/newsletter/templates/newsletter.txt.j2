@@ -34,13 +34,21 @@ DAY   COND  HIGH  LOW  PRECIP
 Nothing on the calendar today — enjoy the free time! 🎈
 {% endif %}
 [{{ 'LIVE' if chores.status == 'ok' else 'PLACEHOLDER' }}] 🧹 CHORES
-Today:
-{% if chores.today -%}
-{% for task in chores.today -%}
+Daily Reset:
+{% if chores.daily_reset -%}
+{% for task in chores.daily_reset -%}
 - {{ task.name }}{% if task.theme %} ({{ task.theme }}){% endif %}
 {% endfor -%}
 {% else -%}
-No chores on deck — clean slate! ✨
+No daily reset tasks configured.
+{% endif %}
+Today's Focus{% if chores.weekday %} — {{ chores.weekday }}{% endif %}:
+{% if chores.todays_focus -%}
+{% for task in chores.todays_focus -%}
+- {{ task.name }}{% if task.theme %} ({{ task.theme }}){% endif %}
+{% endfor -%}
+{% else -%}
+No focus tasks today — enjoy the breather! ✨
 {% endif %}
 This Month:
 {% if chores.this_month -%}

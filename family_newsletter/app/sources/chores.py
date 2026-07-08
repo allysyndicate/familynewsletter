@@ -45,7 +45,14 @@ def _task(task: dict[str, Any]) -> dict[str, Any]:
 
 
 def _empty_result(status: str) -> dict[str, Any]:
-    return {"status": status, "today": [], "this_month": [], "this_quarter": []}
+    return {
+        "status": status,
+        "weekday": "",
+        "daily_reset": [],
+        "todays_focus": [],
+        "this_month": [],
+        "this_quarter": [],
+    }
 
 
 def fetch_chores(config: dict[str, Any], today: date | None = None) -> dict[str, Any]:
@@ -72,8 +79,8 @@ def fetch_chores(config: dict[str, Any], today: date | None = None) -> dict[str,
     monthly_group = _group_by_id(groups, "monthly")
     quarterly_group = _group_by_id(groups, "quarterly")
 
-    today_tasks = [_task(task) for task in daily_group.get("tasks", [])]
-    today_tasks += [
+    daily_reset = [_task(task) for task in daily_group.get("tasks", [])]
+    todays_focus = [
         _task(task)
         for task in weekly_group.get("tasks", [])
         if task.get("day_of_week") == weekday_name
@@ -85,7 +92,8 @@ def fetch_chores(config: dict[str, Any], today: date | None = None) -> dict[str,
     return {
         "status": "ok",
         "weekday": weekday_name,
-        "today": today_tasks,
+        "daily_reset": daily_reset,
+        "todays_focus": todays_focus,
         "this_month": month_tasks,
         "this_quarter": quarter_tasks,
     }

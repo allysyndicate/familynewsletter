@@ -3,6 +3,7 @@ from __future__ import annotations
 from datetime import date, datetime
 from pathlib import Path
 from typing import Any
+from zoneinfo import ZoneInfo
 
 from jinja2 import Environment, FileSystemLoader
 
@@ -15,6 +16,16 @@ from family_newsletter.app.sources.weather import fetch_weather
 
 
 TEMPLATE_DIR = Path(__file__).parent / "templates"
+
+# The daily edition is a Pacific-morning artifact. GitHub Actions runs in UTC,
+# so date.today() there can read as the *next* day and drift the chore weekday.
+# Anchor the edition date to America/Los_Angeles so the weekday is always the
+# recipient's local day.
+PACIFIC_TZ = ZoneInfo("America/Los_Angeles")
+
+
+def pacific_today() -> date:
+    return datetime.now(PACIFIC_TZ).date()
 
 
 def _long_date(value: date) -> str:
@@ -79,7 +90,7 @@ def _weather_config(config: dict[str, Any]) -> dict[str, Any]:
 
 def build_preview_context(settings: Settings, newsletter_date: date | None = None) -> dict[str, Any]:
     config = load_yaml_config(settings.config_file)
-    run_date = newsletter_date or date.today()
+    run_date = newsletter_date or pacific_today()
     news_config = config.get("news", {})
     local_feeds = [str(feed) for feed in news_config.get("local_feeds", [])]
     global_feeds = [str(feed) for feed in news_config.get("global_feeds", [])]

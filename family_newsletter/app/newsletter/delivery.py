@@ -7,6 +7,7 @@ from family_newsletter.app.config import Settings, load_yaml_config
 from family_newsletter.app.email.sender import send_email, smtp_config_from_settings
 from family_newsletter.app.newsletter.preview import (
     build_preview_context,
+    pacific_today,
     render_preview,
     write_preview_files,
 )
@@ -28,8 +29,11 @@ def deliver_newsletter(
     stale/cached data: the email always reflects a live regeneration performed
     immediately before send. When dry_run is True nothing is transmitted.
     """
-    logger.info("Regenerating newsletter (fresh fetch) dry_run=%s", dry_run)
-    context = build_preview_context(settings, newsletter_date)
+    # Resolve the edition date to Pacific here so the weekday used for chore
+    # rotation can never drift under a UTC runner.
+    run_date = newsletter_date or pacific_today()
+    logger.info("Regenerating newsletter (fresh fetch) date=%s dry_run=%s", run_date, dry_run)
+    context = build_preview_context(settings, run_date)
     rendered = render_preview(context)
 
     files = None
