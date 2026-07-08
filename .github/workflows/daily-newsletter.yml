@@ -26,7 +26,6 @@ jobs:
     env:
       # Non-secret runtime config (mirrors the local .env, minus credentials).
       APP_ENV: production
-      SAMPLE_MODE: "true"
       CONFIG_FILE: config.example.yaml
       NEWSLETTER_TIMEZONE: America/Los_Angeles
       NEWSLETTER_SEND_TIME: "08:00"
@@ -34,7 +33,6 @@ jobs:
       EMAIL_PROVIDER: smtp
       SMTP_HOST: smtp.gmail.com
       SMTP_PORT: "587"
-      WEATHER_PROVIDER: sample
       # Secrets (set these in GitHub → Settings → Secrets and variables → Actions).
       SMTP_USERNAME: ${{ secrets.SMTP_USERNAME }}
       SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
