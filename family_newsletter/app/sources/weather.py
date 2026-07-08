@@ -222,14 +222,21 @@ def fetch_weather(config: dict[str, Any]) -> dict[str, Any]:
     elif not current.get("isDaytime"):
         low = current.get("temperature")
 
+    # Headline temp should be the true current-hour reading, not the half-day
+    # forecast period's high/low. Fall back to the forecast period if the
+    # hourly feed is unavailable.
+    current_hour = hourly_periods[0] if hourly_periods else current
+    headline_temp = current_hour.get("temperature")
+    headline_unit = current_hour.get("temperatureUnit", current.get("temperatureUnit", "F"))
+
     return {
         "status": "ok",
         "provider": "nws",
         "location": config.get("location", "Wilsonville, OR 97070"),
         "period": current.get("name", "Current"),
         "summary": current.get("shortForecast", "Forecast available"),
-        "temperature": current.get("temperature"),
-        "temperature_unit": current.get("temperatureUnit", "F"),
+        "temperature": headline_temp,
+        "temperature_unit": headline_unit,
         "high": high,
         "low": low,
         "details": details,
