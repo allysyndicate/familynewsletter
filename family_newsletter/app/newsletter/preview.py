@@ -137,7 +137,7 @@ def build_preview_context(settings: Settings, newsletter_date: date | None = Non
 
     return {
         "subject": subject,
-        "generated_at": _friendly_datetime(datetime.now().astimezone()),
+        "generated_at": _friendly_datetime(datetime.now(PACIFIC_TZ)),
         "newsletter_date": run_date.isoformat(),
         "newsletter_date_display": _long_date(run_date),
         "household": household,

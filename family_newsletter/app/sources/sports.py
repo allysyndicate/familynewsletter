@@ -3,6 +3,7 @@ from __future__ import annotations
 from datetime import date, datetime, timedelta, timezone
 from typing import Any
 from urllib.parse import quote
+from zoneinfo import ZoneInfo
 
 import httpx
 
@@ -140,7 +141,7 @@ def _parse_event_date(value: str) -> datetime | None:
 
 def _format_when(dt: datetime) -> str:
     # Human-readable date convention: "Thursday, July 2" — never a long-form timestamp.
-    local = dt.astimezone()
+    local = dt.astimezone(ZoneInfo("America/Los_Angeles"))
     day = local.strftime("%A, %B %d").replace(" 0", " ")
     clock = local.strftime("%I:%M %p").lstrip("0")
     return f"{day} at {clock}"
