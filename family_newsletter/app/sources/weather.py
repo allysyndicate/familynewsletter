@@ -123,6 +123,26 @@ def _build_daily_forecast(periods: list[dict[str, Any]]) -> list[dict[str, Any]]
     return [days[key] for key in order[:DAILY_FORECAST_DAYS]]
 
 
+def _fetch_open_meteo_current(latitude: float, longitude: float) -> dict[str, Any] | None:
+    """Real 'right now' observed-ish temperature from Open-Meteo (no API key)."""
+    url = (
+        "https://api.open-meteo.com/v1/forecast"
+        f"?latitude={latitude}&longitude={longitude}"
+        "&current=temperature_2m&temperature_unit=fahrenheit"
+    )
+    try:
+        with httpx.Client(headers={"User-Agent": USER_AGENT}, timeout=15.0) as client:
+            response = client.get(url)
+            response.raise_for_status()
+            current = response.json().get("current", {})
+    except (httpx.HTTPError, ValueError):
+        return None
+    temp = current.get("temperature_2m")
+    if temp is None:
+        return None
+    return {"temperature": temp, "temperature_unit": "F"}
+
+
 def _sample_weather() -> dict[str, Any]:
     return {
         "status": "placeholder",
@@ -222,12 +242,16 @@ def fetch_weather(config: dict[str, Any]) -> dict[str, Any]:
     elif not current.get("isDaytime"):
         low = current.get("temperature")
 
-    # Headline temp should be the true current-hour reading, not the half-day
-    # forecast period's high/low. Fall back to the forecast period if the
-    # hourly feed is unavailable.
+    # Headline temp should be a real "right now" reading. Prefer Open-Meteo's
+    # observed-ish current temperature; fall back to the NWS hourly feed's
+    # current hour, then the forecast period, if Open-Meteo is unavailable.
     current_hour = hourly_periods[0] if hourly_periods else current
     headline_temp = current_hour.get("temperature")
     headline_unit = current_hour.get("temperatureUnit", current.get("temperatureUnit", "F"))
+    open_meteo = _fetch_open_meteo_current(latitude, longitude)
+    if open_meteo is not None:
+        headline_temp = open_meteo["temperature"]
+        headline_unit = open_meteo["temperature_unit"]
 
     return {
         "status": "ok",
